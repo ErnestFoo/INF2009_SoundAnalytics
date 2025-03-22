@@ -11,7 +11,7 @@ import os
 r = sr.Recognizer() #Initializing the Recognizer class
 with sr.Microphone() as source:
     r.adjust_for_ambient_noise(source) #Important step to identify the ambient noise and hence be silent during this phase
-    os.system('clear') 
+    os.system('cls')  # Clear the screen
     print("Say something!")
     audio = r.listen(source) # Listening from microphone
 
@@ -21,7 +21,12 @@ try:
     # for testing purposes, we're just using the default API key
     # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
     # instead of `r.recognize_google(audio)`
-    print("Google Speech Recognition thinks you said " + r.recognize_google(audio))
+    print("Google Speech Recognition thinks you said: " + r.recognize_google(audio))
+    if(r.recognize_google(audio) == 'exit'):
+        exit()
+    elif(r.recognize_google(audio) == 'banana'):
+        print("Banana is a fruit")
+
 except sr.UnknownValueError:
     print("Google Speech Recognition could not understand audio")
 except sr.RequestError as e:
@@ -31,7 +36,7 @@ print('Time for Google Speech Recognition recognition = {:.0f} seconds'.format(t
 # recognize speech using Sphinx
 start_time=time.time()  # start time
 try:
-     print("Sphinx thinks you said " + r.recognize_sphinx(audio))    
+     print("Sphinx thinks you said: " + r.recognize_sphinx(audio))
 except sr.UnknownValueError:
     print("Sphinx could not understand audio")
 except sr.RequestError as e:
